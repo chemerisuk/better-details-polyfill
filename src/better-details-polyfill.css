@@ -1,0 +1,25 @@
+/* drop native styles to be consistent in all browsers */
+summary::-webkit-details-marker {
+    display: none
+}
+
+details > * {
+    display: none;
+}
+
+details > summary {
+    display: block;
+}
+
+details[open] > * {
+    display: block;
+}
+
+summary:before {
+    content: "► ";
+    font-size: 0.75em;
+}
+
+details[open] > summary:before {
+    content: "▼ ";
+}
