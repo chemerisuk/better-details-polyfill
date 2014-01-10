@@ -1,0 +1,35 @@
+/**
+ * @file src/better-details-polyfill.css
+ * @version 1.0.0-beta.1 2014-01-10T23:27:53
+ * @overview <details> polyfill for better-dom
+ * @copyright Maksim Chemerisuk 2014
+ * @license MIT
+ * @see https://github.com/chemerisuk/better-details-polyfill
+ */
+/* drop native styles to be consistent in all browsers */
+summary::-webkit-details-marker {
+    display: none
+}
+
+details > * {
+    display: none;
+}
+
+details > summary {
+    display: block;
+}
+
+details[open] > * {
+    display: block;
+}
+
+summary:before {
+    content: "►";
+    font-size: 0.75em;
+    display: inline-block;
+    width: 1.5em;
+}
+
+details[open] > summary:before {
+    content: "▼";
+}
