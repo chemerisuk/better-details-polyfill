@@ -14,12 +14,10 @@
                 .on("keydown", this.onKeyDown.bind(this), ["which"]);
         },
         _toggleOpenState: function() {
-            var state = this.get("open") == null ? "open" : null;
-
             this
-                .set("open", state)
-                // trigger reflow in legacy IE
-                .style("zoom", state === "open" ? 0 : 1);
+                .set("open", this.get("open") == null ? "open" : null)
+                // trigger reflow in legacy IE by toggling a fake class
+                .toggleClass("ie8-must-die");
         },
         onKeyDown: function(key) {
             if (key === 13 || key === 32) {

@@ -16,10 +16,12 @@ details[open] > * {
 }
 
 summary:before {
-    content: "► ";
+    content: "►";
     font-size: 0.75em;
+    display: inline-block;
+    width: 1.5em;
 }
 
 details[open] > summary:before {
-    content: "▼ ";
+    content: "▼";
 }
