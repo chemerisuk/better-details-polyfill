@@ -1,6 +1,6 @@
 {
   "name": "better-details-polyfill",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "main": [
     "dist/better-details-polyfill.js",
     "dist/better-details-polyfill.css"
@@ -14,6 +14,6 @@
     "better-dom"
   ],
   "dependencies": {
-    "better-dom": "~1.6.6"
+    "better-dom": "~1.7.0"
   }
 }

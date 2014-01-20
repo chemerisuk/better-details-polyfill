@@ -16,12 +16,19 @@ details[open] > * {
 }
 
 summary:before {
-    content: "►";
+    content: "\25BA";
     font-size: 0.75em;
     display: inline-block;
     width: 1.5em;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    summary:before {
+        /* the "\25BA" symbol looks weird on iphone */
+        content: "\25B6";
+    }
+}
+
 details[open] > summary:before {
-    content: "▼";
+    content: "\25BC";
 }

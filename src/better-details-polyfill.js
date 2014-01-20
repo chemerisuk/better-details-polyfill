@@ -1,27 +1,24 @@
 (function(DOM, undefined) {
     "use strict";
 
-    // do nothing if there is a native support
-    if(typeof DOM.create("details").get("open") === "boolean") return;
+    var supportsDetails = typeof DOM.create("details").get("open") === "boolean";
 
-    DOM.extend("details", {
+    DOM.extend("details", !supportsDetails, {
         constructor: function() {
             var summary = this.child(0, "summary");
 
             summary
                 .set("tabindex", 0) // make summary focusable
-                .on("click", this._toggleOpenState.bind(this))
-                .on("keydown", this.onKeyDown.bind(this), ["which"]);
+                .on("click", this.doToggleOpenState.bind(this))
+                .on("keydown", this.onKeyDown.bind(this, this.doToggleOpenState), ["which"]);
         },
-        _toggleOpenState: function() {
+        doToggleOpenState: function() {
             this
-                .set("open", this.get("open") == null ? "open" : null)
-                // trigger reflow in legacy IE by toggling a fake class
-                .toggleClass("ie8-must-die");
+                .set("open", this.get("open") == null ? "open" : null);
         },
-        onKeyDown: function(key) {
+        onKeyDown: function(doToggleOpenState, key) {
             if (key === 13 || key === 32) {
-                this._toggleOpenState();
+                doToggleOpenState.call(this);
 
                 return false;
             }
