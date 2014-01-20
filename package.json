@@ -9,8 +9,7 @@
     "url": "https://github.com/chemerisuk/better-details-polyfill"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "bower install"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "0.4.1",
