@@ -15,11 +15,11 @@ describe("better-details-polyfill", function() {
         var getSpy = spyOn(details, "get"),
             setSpy = spyOn(details, "set");
 
-        getSpy.andReturn(null);
+        getSpy.and.returnValue(null);
         details.doToggleOpenState();
         expect(setSpy).toHaveBeenCalledWith("open", "open");
 
-        getSpy.andReturn("open");
+        getSpy.and.returnValue("open");
         details.doToggleOpenState();
         expect(setSpy).toHaveBeenCalledWith("open", null);
     });
@@ -28,10 +28,10 @@ describe("better-details-polyfill", function() {
         var spy = jasmine.createSpy("doToggleOpenState");
 
         expect(details.onKeyDown(spy, 14)).not.toBe(false);
-        expect(spy.callCount).toBe(0);
+        expect(spy.calls.count()).toBe(0);
         expect(details.onKeyDown(spy, 13)).toBe(false);
-        expect(spy.callCount).toBe(1);
+        expect(spy.calls.count()).toBe(1);
         expect(details.onKeyDown(spy, 32)).toBe(false);
-        expect(spy.callCount).toBe(2);
+        expect(spy.calls.count()).toBe(2);
     });
 });
