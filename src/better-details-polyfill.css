@@ -1,12 +1,11 @@
-/*
-    Hide native indicator and use pseudoelement instead
-*/
-summary::-webkit-details-marker {
+/*  Use tilda instead of the child selector to fix (partially)
+    a weird issue in IE11 for nested <details> elements */
+summary ~ * {
     display: none;
 }
 
-details > * {
-    display: none;
+details[open] > * {
+    display: block;
 }
 
 details > summary {
@@ -14,31 +13,27 @@ details > summary {
     overflow: hidden; /* fix focus outline borders in open state */
 }
 
-details[open] > * {
-    display: block;
+/*  Hide native indicator and use pseudoelement instead */
+summary::-webkit-details-marker {
+    display: none;
 }
 
-/*
-    IE8 has weird issue with updating state of border triangle.
-    So use preudoelement symbol for it to fix that quirks
-*/
+/*  IE8 has weird issue with updating state of border triangle.
+    So use preudoelement symbol for it to fix that quirks */
 summary:before {
     content: "\25BA";
     font-size: 0.75em;
     display: inline-block;
     width: 1.5em;
-    -ms-user-select: none;
 }
 
 details[open] > summary:before {
     content: "\25BC";
 }
 
-/*
-    For modern browsers use border to draw the triangle.
-    It allows to be consistent regarding on the current font
-*/
-:root summary:before {
+/*  For modern browsers use border to draw the triangle.
+    It allows to be consistent regarding on the current font */
+summary::before {
     content: "";
 
     width: 0;
@@ -55,7 +50,7 @@ details[open] > summary:before {
     transition: transform 0.25s;
 }
 
-:root details[open] > summary:before {
+details[open] > summary::before {
     content: "";
 
     -webkit-transform: rotate(90deg) translate(0.5em, 0.25em);

@@ -43,6 +43,8 @@ Then append the following html elements on your page:
 * Android 2.3+
 * Chrome for Android
 
+NOTE: for Android 2.3 you have to include a **better-dom-legacy.js** or a polyfill for `Function.prototype.bind`.
+
 [travis-url]: http://travis-ci.org/chemerisuk/better-details-polyfill
 [travis-image]: https://api.travis-ci.org/chemerisuk/better-details-polyfill.png?branch=master
 
