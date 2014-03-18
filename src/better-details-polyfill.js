@@ -1,4 +1,4 @@
-(function(DOM, undefined) {
+(function(DOM) {
     "use strict";
 
     var supportsDetails = typeof DOM.create("details").get("open") === "boolean";

@@ -1,4 +1,4 @@
-# better-details-polyfill [![Build Status](https://api.travis-ci.org/chemerisuk/better-details-polyfill.png?branch=master)](http://travis-ci.org/chemerisuk/better-details-polyfill)
+# better-details-polyfill [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 > `<details>` polyfill for [better-dom](https://github.com/chemerisuk/better-dom)
 
 [LIVE DEMO](http://chemerisuk.github.io/better-details-polyfill/)
@@ -31,8 +31,20 @@ Then append the following html elements on your page:
 ```
 
 ## Browser support
+#### Desktop
 * Chrome
 * Safari 6.0+
 * Firefox 16+
 * Opera 12.10+
 * IE8+
+
+#### Mobile
+* iOS Safari 6+
+* Android 2.3+
+* Chrome for Android
+
+[travis-url]: http://travis-ci.org/chemerisuk/better-details-polyfill
+[travis-image]: https://api.travis-ci.org/chemerisuk/better-details-polyfill.png?branch=master
+
+[coveralls-url]: https://coveralls.io/r/chemerisuk/better-details-polyfill
+[coveralls-image]: https://coveralls.io/repos/chemerisuk/better-details-polyfill/badge.png?branch=master
