@@ -1,14 +1,18 @@
 {
   "name": "better-details-polyfill",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-rc.1",
   "main": [
     "dist/better-details-polyfill.js",
     "dist/better-details-polyfill.css"
   ],
   "ignore": [
     ".*",
+    "test",
     "src",
-    "test"
+    "Gruntfile.js",
+    "package.json",
+    "bower.json",
+    "main.sublime-project"
   ],
   "keywords": [
     "better-dom"

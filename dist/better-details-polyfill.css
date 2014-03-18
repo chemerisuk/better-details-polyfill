@@ -1,28 +1,33 @@
 /**
  * @file src/better-details-polyfill.css
- * @version 1.0.0-beta.2 2014-01-20T18:21:11
+ * @version 1.0.0-rc.1 2014-03-18T15:38:40
  * @overview <details> polyfill for better-dom
  * @copyright Maksim Chemerisuk 2014
  * @license MIT
  * @see https://github.com/chemerisuk/better-details-polyfill
  */
-/* drop native styles to be consistent in all browsers */
-summary::-webkit-details-marker {
-    display: none
-}
-
-details > * {
+/*  Use tilda instead of the child selector to fix (partially)
+    a weird issue in IE11 for nested <details> elements */
+summary ~ * {
     display: none;
-}
-
-details > summary {
-    display: block;
 }
 
 details[open] > * {
     display: block;
 }
 
+details > summary {
+    display: block;
+    overflow: hidden; /* fix focus outline borders in open state */
+}
+
+/*  Hide native indicator and use pseudoelement instead */
+summary::-webkit-details-marker {
+    display: none;
+}
+
+/*  IE8 has weird issue with updating state of border triangle.
+    So use preudoelement symbol for it to fix that quirks */
 summary:before {
     content: "\25BA";
     font-size: 0.75em;
@@ -30,13 +35,33 @@ summary:before {
     width: 1.5em;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    summary:before {
-        /* the "\25BA" symbol looks weird on iphone */
-        content: "\25B6";
-    }
-}
-
 details[open] > summary:before {
     content: "\25BC";
+}
+
+/*  For modern browsers use border to draw the triangle.
+    It allows to be consistent regarding on the current font */
+summary::before {
+    content: "";
+
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-left-color: inherit;
+    border-width: 0.475em 0.75em;
+
+    -webkit-transform: rotate(0deg) translate(0.25em, 0em);
+    -ms-transform: rotate(0deg) translate(0.25em, 0em);
+    transform: rotate(0deg) translate(0.25em, 0em);
+
+    -webkit-transition: -webkit-transform 0.25s;
+    transition: transform 0.25s;
+}
+
+details[open] > summary::before {
+    content: "";
+
+    -webkit-transform: rotate(90deg) translate(0.5em, 0.25em);
+    -ms-transform: rotate(90deg) translate(0.5em, 0.25em);
+    transform: rotate(90deg) translate(0.5em, 0.25em);
 }
