@@ -42,6 +42,7 @@ summary::before {
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
+    margin-right: -0.25em;
 
     -webkit-transform: rotate(0deg) translate(0.1em, -0.1em);
     -ms-transform: rotate(0deg) translate(0.1em, -0.1em);
