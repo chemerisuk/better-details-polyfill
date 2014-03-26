@@ -38,11 +38,10 @@ summary::before {
 
     width: 0;
     height: 0;
-    font-size: 1em;
+    font-size: 1rem; /* use rem instead of em to fix size in IEs */
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
-    margin-right: -0.25em;
 
     -webkit-transform: rotate(0deg) translate(0.1em, -0.1em);
     -ms-transform: rotate(0deg) translate(0.1em, -0.1em);

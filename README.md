@@ -1,6 +1,8 @@
 # better-details-polyfill [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 > `<details>` polyfill for [better-dom](https://github.com/chemerisuk/better-dom)
 
+The goal for this project is to create a robust polyfill for `<details>` element which provides consistent behavior in every browser (see [browser support](#browser-support)), so you can use this new element on your pages today.
+
 [LIVE DEMO](http://chemerisuk.github.io/better-details-polyfill/)
 
 ## Installing
@@ -42,8 +44,6 @@ Then append the following html elements on your page:
 * iOS Safari 6+
 * Android 2.3+
 * Chrome for Android
-
-NOTE: for Android 2.3 you have to include a **better-dom-legacy.js** or a polyfill for `Function.prototype.bind`.
 
 [travis-url]: http://travis-ci.org/chemerisuk/better-details-polyfill
 [travis-image]: https://api.travis-ci.org/chemerisuk/better-details-polyfill.png?branch=master
