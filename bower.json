@@ -1,6 +1,6 @@
 {
   "name": "better-details-polyfill",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "main": [
     "dist/better-details-polyfill.js",
     "dist/better-details-polyfill.css"
@@ -9,6 +9,7 @@
     ".*",
     "test",
     "src",
+    "index.html",
     "Gruntfile.js",
     "package.json",
     "bower.json",

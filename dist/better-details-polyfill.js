@@ -1,6 +1,6 @@
 /**
  * @file src/better-details-polyfill.js
- * @version 1.0.0-rc.1 2014-03-18T15:38:40
+ * @version 1.0.0 2014-03-26T12:59:25
  * @overview <details> polyfill for better-dom
  * @copyright Maksim Chemerisuk 2014
  * @license MIT
@@ -17,13 +17,13 @@
 
             summary
                 .set("tabindex", 0) // make summary to be focusable
-                .on("click", this.doToggleOpenState.bind(this))
-                .on("keydown", this.onKeyDown.bind(this, summary), ["which"]);
+                .on("click", this.doToggleOpenState, ["currentTarget"])
+                .on("keydown", this.onKeyDown, ["currentTarget", "which"]);
         },
-        doToggleOpenState: function() {
-            this.set("open", this.get("open") == null ? "open" : null);
-            // FIXME: remove after better-dom update to 1.7.4
-            this.toggleClass("fake-class-to-fix-legacy-android-reflow");
+        doToggleOpenState: function(summary) {
+            var details = summary.parent();
+
+            details.set("open", details.get("open") == null ? "open" : null);
         },
         onKeyDown: function(summary, key) {
             if (key === 13 || key === 32) {
