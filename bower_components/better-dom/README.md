@@ -6,7 +6,8 @@ But more flexibility is required in a lot of cases. For example, delegated event
 
 [API DOCUMENTATION](http://chemerisuk.github.io/better-dom/)
 
-I'd recommend the articles below to get started:
+## Quick start
+I'd recommend to read articles below that cover the main ideas of the library:
 * [Introduction into the better-dom library in English](http://coding.smashingmagazine.com/2014/01/13/better-javascript-library-for-the-dom/) @smashingmagazine.com
 * [Введение в библиотеку better-dom по-русски](http://habrahabr.ru/post/209140/) @habrahabr.ru
 
@@ -48,7 +49,7 @@ This will clone the latest version of the __better-dom__ with dependencies into 
 * Read the [FAQ](https://github.com/chemerisuk/better-dom/wiki/FAQ)
 * Take a look at the [better-dom wiki](https://github.com/chemerisuk/better-dom/wiki)
 * Check [releases tab](https://github.com/chemerisuk/better-dom/releases) for getting the changes log
-* Walk through the sorce code of existing [projects that use better-dom](https://github.com/chemerisuk/better-dom/wiki/Projects-that-use-better-dom).
+* Walk through the sorce code of existing [projects that use better-dom](http://bower.io/search/?q=better-dom).
 
 ## Performance
 * [DOM.create vs jquery](http://jsperf.com/dom-create-vs-jquery/26)
@@ -62,17 +63,19 @@ In order to create a custom build make sure that you installed [grunt-cli](https
 
     npm install -g grunt-cli
 
-Then you can print all available modules for customization via the task below:
+Then you can print all available modules for customization via the default task:
+
+    grunt
+
+To create a full build run `build` task without arguments:
 
     grunt build
 
-Pick modules that you want to exclude and pass them to the same task separated by comma:
+Your build will be created inside of the `build` folder including uglified version with source maps. Pick modules that you want to exclude and pass them to the same task separated by comma:
 
-    grunt build:classes,offset,data
+    grunt build:classes,offset,traversing
 
-Look at the [API documentation](http://chemerisuk.github.io/better-dom/) to find which functions are included into a particular module.
-
-Your custom build will be created inside of the `build` folder including uglified version and source maps.
+Look at the [API documentation](http://chemerisuk.github.io/better-dom/) to find which functions are included into a particular module (see *Modules* menu).
 
 ## Notes about old IEs
 For IE8-9 support you have to incude extra files via conditional comment (see [Installation](#installation) section).
