@@ -5,6 +5,11 @@ The goal for this project is to create a robust polyfill for `<details>` element
 
 [LIVE DEMO](http://chemerisuk.github.io/better-details-polyfill/)
 
+## Features
+* [live extension](https://github.com/chemerisuk/better-dom/wiki/Live-extensions) - works for current and future content
+* fully customisable via CSS
+* keyboard support
+
 ## Installing
 Use [bower](http://bower.io/) to download this extension with all required dependencies.
 
