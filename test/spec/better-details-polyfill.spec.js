@@ -9,7 +9,7 @@ describe("better-details-polyfill", function() {
     });
 
     it("should make summary to be focusable", function() {
-        expect(summary.get("tabindex")).toBe("0");
+        expect(summary.get("tabindex")).toBe(0);
     });
 
     it("should toggle open attribute on summary click", function() {

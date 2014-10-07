@@ -9,11 +9,11 @@
 
             summary
                 .set("tabindex", 0) // make summary to be focusable
-                .on("click", this.doToggleOpenState, ["currentTarget"])
-                .on("keydown", this.onKeyDown, ["currentTarget", "which"]);
+                .on("click", ["currentTarget"], this.doToggleOpenState)
+                .on("keydown", ["currentTarget", "which"], this.onKeyDown);
         },
         doToggleOpenState: function(summary) {
-            var details = summary.parent();
+            var details = summary.closest("details");
 
             details.set("open", details.get("open") == null ? "open" : null);
         },
