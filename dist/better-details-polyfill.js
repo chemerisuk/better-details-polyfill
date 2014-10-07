@@ -1,6 +1,6 @@
 /**
  * @file src/better-details-polyfill.js
- * @version 1.0.0 2014-03-26T12:59:25
+ * @version 1.1.0 2014-10-07T21:01:27
  * @overview <details> polyfill for better-dom
  * @copyright Maksim Chemerisuk 2014
  * @license MIT
@@ -17,11 +17,11 @@
 
             summary
                 .set("tabindex", 0) // make summary to be focusable
-                .on("click", this.doToggleOpenState, ["currentTarget"])
-                .on("keydown", this.onKeyDown, ["currentTarget", "which"]);
+                .on("click", ["currentTarget"], this.doToggleOpenState)
+                .on("keydown", ["currentTarget", "which"], this.onKeyDown);
         },
         doToggleOpenState: function(summary) {
-            var details = summary.parent();
+            var details = summary.closest("details");
 
             details.set("open", details.get("open") == null ? "open" : null);
         },

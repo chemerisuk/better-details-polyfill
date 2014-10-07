@@ -1,6 +1,6 @@
 /**
  * @file src/better-details-polyfill.css
- * @version 1.0.0 2014-03-26T12:59:25
+ * @version 1.1.0 2014-10-07T21:01:27
  * @overview <details> polyfill for better-dom
  * @copyright Maksim Chemerisuk 2014
  * @license MIT
@@ -30,9 +30,9 @@ summary::-webkit-details-marker {
     So use preudoelement symbol for it to fix that quirks */
 summary:before {
     content: "\25BA";
-    font-size: 0.75em;
     display: inline-block;
     width: 1.5em;
+    font-size: 0.75em\0;
 }
 
 details[open] > summary:before {
@@ -46,7 +46,6 @@ summary::before {
 
     width: 0;
     height: 0;
-    font-size: 1rem; /* use rem instead of em to fix size in IEs */
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
