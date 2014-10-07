@@ -1,6 +1,6 @@
 /**
  * @file src/better-details-polyfill.js
- * @version 1.1.0 2014-10-07T21:01:27
+ * @version 1.1.0 2014-10-07T21:02:45
  * @overview <details> polyfill for better-dom
  * @copyright Maksim Chemerisuk 2014
  * @license MIT
