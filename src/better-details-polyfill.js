@@ -1,19 +1,18 @@
 (function(DOM) {
     "use strict";
+    // invoke extension only if there is no native support
+    var condition = typeof DOM.create("details").get("open") !== "boolean";
 
-    DOM.extend("details", {
+    DOM.extend("details", condition, {
         constructor() {
-            // invoke extension only if there is no native support
-            if (typeof this.get("open") === "boolean") return false;
-
             var summary = this.child(0);
 
             summary
                 .set("tabindex", 0) // make summary to be focusable
-                .on("click", ["currentTarget"], this.doToggleOpenState)
+                .on("click", ["currentTarget"], this.doToggleOpen)
                 .on("keydown", ["currentTarget", "which"], this.onKeyDown);
 
-            this.doDefineProp(this[0], "open");
+            if (condition) this.doDefineProp(this[0], "open");
         },
         doDefineProp(node, propName) {
             var LEGACY_IE = !document.addEventListener;
@@ -45,7 +44,7 @@
                 }
             }, 0);
         },
-        doToggleOpenState(summary) {
+        doToggleOpen(summary) {
             var details = summary.closest("details");
 
             details.set("open", !details.get("open"));

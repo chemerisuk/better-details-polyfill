@@ -18,11 +18,11 @@ describe("better-details-polyfill", function() {
 
         getSpy.and.returnValue(null);
         summary.fire("click");
-        expect(setSpy).toHaveBeenCalledWith("open", "open");
+        expect(setSpy).toHaveBeenCalledWith("open", true);
 
         getSpy.and.returnValue("open");
         summary.fire("click");
-        expect(setSpy).toHaveBeenCalledWith("open", null);
+        expect(setSpy).toHaveBeenCalledWith("open", false);
     });
 
     it("should toggle details on space or enter key", function() {
