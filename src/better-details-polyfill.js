@@ -13,34 +13,35 @@
                 .on("click", ["currentTarget"], this.doToggleOpenState)
                 .on("keydown", ["currentTarget", "which"], this.onKeyDown);
 
-            this.doDefineOpen(this[0]);
+            this.doDefineProp(this[0], "open");
         },
-        doDefineOpen(node) {
+        doDefineProp(node, propName) {
             var LEGACY_IE = !document.addEventListener;
 
             setTimeout(() => {
-                var attrName = LEGACY_IE ? "OPEN" : "open";
-                var initialValue = node.getAttribute("open", 1);
-
-                Object.defineProperty(node, "open", {
+                var initialValue = node.getAttribute(propName, 1);
+                // for a some reason IE8 crashes w/o setTimeout
+                Object.defineProperty(node, propName, {
                     get() {
-                        var value = node.getAttribute(attrName, 1);
+                        var value = String(node.getAttribute(propName, 1)).toLowerCase();
 
-                        return value === "" || value === "open";
+                        return value === "" || value === propName.toLowerCase();
                     },
                     set(value) {
                         if (value) {
-                            node.setAttribute(attrName, "", 1);
+                            node.setAttribute(propName, "", 1);
                         } else {
-                            node.removeAttribute(attrName, 1);
+                            node.removeAttribute(propName, 1);
                         }
-
+                        // fix refresh issue in IE8
                         if (LEGACY_IE) node.className = node.className;
                     }
                 });
+                // trick to avoid infinite recursion in IE8
+                if (LEGACY_IE) propName = propName.toUpperCase();
 
                 if (initialValue !== null) {
-                    node.setAttribute(attrName, initialValue, 1);
+                    node.setAttribute(propName, initialValue, 1);
                 }
             }, 0);
         },
