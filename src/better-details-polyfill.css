@@ -24,7 +24,6 @@ summary:before {
     content: "\25BA";
     display: inline-block;
     width: 1.5em;
-    font-size: 0.75em\0;
 }
 
 details[open] > summary:before {
@@ -34,20 +33,21 @@ details[open] > summary:before {
 /*  For modern browsers use border to draw the triangle.
     It allows to be consistent regarding on the current font */
 summary::before {
-    content: "";
+    content: "" !important;
 
     width: 0;
     height: 0;
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
+    margin-left: 0.25em;
+    margin-right: -0.25em;
 
-    transform: rotate(0deg) translate(0.1em, -0.1em);
+    transform: rotate(0deg);
+    transform-origin: 25% 50%;
     transition: transform 0.25s;
 }
 
 details[open] > summary::before {
-    content: "";
-
-    transform: rotate(90deg) translate(0.25em, 0.25em);
+    transform: rotate(90deg);
 }

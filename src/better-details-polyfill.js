@@ -1,4 +1,4 @@
-(function(DOM) {
+(function(DOM, VK_SPACE, VK_ENTER) {
     "use strict";
     // invoke extension only if there is no native support
     var condition = typeof DOM.create("details").get("open") !== "boolean";
@@ -50,11 +50,11 @@
             details.set("open", !details.get("open"));
         },
         onKeyDown(summary, key) {
-            if (key === 13 || key === 32) {
+            if (key === VK_SPACE || key === VK_ENTER) {
                 summary.fire("click");
 
                 return false;
             }
         }
     });
-}(window.DOM));
+}(window.DOM, 32, 13));
