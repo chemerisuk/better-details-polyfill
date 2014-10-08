@@ -42,18 +42,12 @@ summary::before {
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
 
-    -webkit-transform: rotate(0deg) translate(0.1em, -0.1em);
-    -ms-transform: rotate(0deg) translate(0.1em, -0.1em);
     transform: rotate(0deg) translate(0.1em, -0.1em);
-
-    -webkit-transition: -webkit-transform 0.25s;
     transition: transform 0.25s;
 }
 
 details[open] > summary::before {
     content: "";
 
-    -webkit-transform: rotate(90deg) translate(0.25em, 0.25em);
-    -ms-transform: rotate(90deg) translate(0.25em, 0.25em);
     transform: rotate(90deg) translate(0.25em, 0.25em);
 }

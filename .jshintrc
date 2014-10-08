@@ -1,6 +1,6 @@
 {
+    "esnext": true,
     "browser": true,
-    "onevar": true,
     "eqnull": true,
 
     "quotmark": "double",
@@ -21,18 +21,14 @@
         "DOM": true,
         "module": true,
         "require": true,
-        "define": true,
+        "process": true,
 
         "beforeEach": true,
         "afterEach": true,
         "describe": true,
         "it": true,
         "expect": true,
-        "setFixtures": true,
         "jasmine": true,
-        "waits": true,
-        "runs": true,
-        "spyOn": true,
-        "waitsFor": true
+        "spyOn": true
     }
 }
