@@ -2,8 +2,7 @@
   "name": "better-details-polyfill",
   "version": "1.1.0",
   "main": [
-    "dist/better-details-polyfill.js",
-    "dist/better-details-polyfill.css"
+    "dist/better-details-polyfill.js"
   ],
   "ignore": [
     ".*",

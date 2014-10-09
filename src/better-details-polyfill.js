@@ -42,7 +42,7 @@
                 if (initialValue !== null) {
                     node.setAttribute(propName, initialValue, 1);
                 }
-            }, 0);
+            }, 100);
         },
         doToggleOpen(summary) {
             var details = summary.closest("details");
