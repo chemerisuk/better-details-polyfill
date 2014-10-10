@@ -6,6 +6,7 @@ module.exports = function(config) {
         singleRun: true,
         frameworks: ["jasmine"],
         browsers: ["PhantomJS"],
+        preprocessors: { "build/*.js": "coverage" },
         files: [
             "bower_components/es5-shim/es5-shim.js",
             "bower_components/better-dom/dist/better-dom.js",

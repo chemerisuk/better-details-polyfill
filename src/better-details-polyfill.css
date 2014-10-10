@@ -8,27 +8,19 @@ details[open] > * {
     display: block;
 }
 
-details > summary {
+details > summary:first-child {
     display: block;
     overflow: hidden; /* fix focus outline borders in open state */
 }
 
-/*  Hide native indicator and use pseudoelement instead */
-summary::-webkit-details-marker {
-    display: none;
-}
-
-/*  IE8 has weird issue with updating state of border triangle.
-    So use preudoelement symbol for it to fix that quirks */
+/*  IE8 has weird issue with updating state of pseudoelements.
+    So use a triangle symbol for it instead to fix that quirks */
 summary:before {
     content: "\25BA";
     display: inline-block;
     width: 1.25em;
     font-size: 0.75em;
-}
-
-details[open] > summary:before {
-    content: "\25BC";
+    margin-left: 0.25em;
 }
 
 /*  For modern browsers use border to draw the triangle.
@@ -41,15 +33,23 @@ summary::before {
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
-    margin-left: 0.25em;
-    margin-right: -0.25em;
-    font-size: inherit;
 
-    transform: rotate(0deg);
+    position: relative;
+    top: -0.15em;
+    left: 0.15em;
+
+    /* use scale to apply antialiasing on the triangle */
+    transform: rotate(0deg) scale(1.4);
     transform-origin: 25% 50%;
     transition: transform 0.25s;
 }
 
-details[open] > summary::before {
-    transform: rotate(90deg);
+details[open] > summary:first-child:before {
+    content: "\25BC";
+    transform: rotate(90deg) scale(1.4);
+}
+
+/*  Hide native indicator and use pseudoelement instead */
+summary::-webkit-details-marker {
+    display: none;
 }
