@@ -1,9 +1,10 @@
 describe("better-details-polyfill", function() {
     "use strict";
 
-    var details, summary;
+    var details, summary, defineSpy;
 
     beforeEach(function() {
+        defineSpy = spyOn(Object, "defineProperty");
         details = DOM.mock("details>summary>`test`^p>`some text`");
         summary = details.child(0);
     });
