@@ -9,7 +9,6 @@
     "test",
     "src",
     "index.html",
-    "Gruntfile.js",
     "package.json",
     "bower.json"
   ],
