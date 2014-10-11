@@ -8,14 +8,11 @@
     "type": "git",
     "url": "https://github.com/chemerisuk/better-details-polyfill"
   },
-  "devDependencies": {
-    "better-dom-boilerplate": "git://github.com/chemerisuk/better-dom-boilerplate.git"
-  },
   "scripts": {
     "test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
     "start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
   },
-  "autoprefixer": [
-    "last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"
-  ]
+  "devDependencies": {
+    "better-dom-boilerplate": "git://github.com/chemerisuk/better-dom-boilerplate.git"
+  }
 }

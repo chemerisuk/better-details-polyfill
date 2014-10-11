@@ -19,10 +19,6 @@
 
     "globals": {
         "DOM": true,
-        "module": true,
-        "require": true,
-        "process": true,
-
         "beforeEach": true,
         "afterEach": true,
         "describe": true,
