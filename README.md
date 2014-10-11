@@ -8,20 +8,19 @@ The goal for this project is to create a robust polyfill for `<details>` element
 ## Features
 * [live extension](https://github.com/chemerisuk/better-dom/wiki/Live-extensions) - works for current and future content
 * fully customisable via CSS
+* `open` attribute support
 * keyboard support
 
 ## Installing
 Use [bower](http://bower.io/) to download this extension with all required dependencies.
 
-    bower install better-details-polyfill --save
+    $ bower install better-details-polyfill
 
 This will clone the latest version of the __better-details-polyfill__ into the `bower_components` directory at the root of your project.
 
 Then append the following tags on your page:
 
 ```html
-<link rel="stylesheet" href="bower_components/better-details-polyfill/dist/better-details-polyfill.css">
-
 <script src="bower_components/better-dom/dist/better-dom.js"></script>
 <script src="bower_components/better-details-polyfill/dist/better-details-polyfill.js"></script>
 ```

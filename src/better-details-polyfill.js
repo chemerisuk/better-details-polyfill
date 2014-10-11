@@ -13,7 +13,7 @@
                 .set("tabindex", 0) // make summary to be focusable
                 .on("click", ["currentTarget"], this.doToggleOpen)
                 .on("keydown", ["currentTarget", "which"], this.onKeyDown);
-
+            /* istanbul ignore if */
             if (JSCRIPT_VERSION < 9) {
                 // for a some reason IE8 crashes w/o setTimeout
                 setTimeout(this.doDefineProp, 100);
@@ -38,14 +38,16 @@
                     } else {
                         node.removeAttribute(propName, 1);
                     }
-                    // fix refresh issue in IE8
+                    /* istanbul ignore if */
                     if (JSCRIPT_VERSION < 9) {
+                        // fix refresh issue in IE8
                         node.className = node.className;
                     }
                 }
             });
-            // trick to avoid infinite recursion in IE8
+            /* istanbul ignore if */
             if (JSCRIPT_VERSION < 9) {
+                // trick to avoid infinite recursion in IE8
                 propName = propName.toUpperCase();
             }
 
