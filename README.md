@@ -1,7 +1,7 @@
 # better-details-polyfill<br>[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Bower version][fury-image]][fury-url]
 > `<details>` polyfill for [better-dom](https://github.com/chemerisuk/better-dom)
 
-The goal for this project is to create a robust polyfill for `<details>` element which provides consistent behavior in every browser (see [browser support](#browser-support)), so you can use this new element on your pages today.
+The goal for this project is to create a robust polyfill for the `<details>` element which provides consistent behavior in every browser (see [browser support](#browser-support)), so you can use this new element on your pages today.
 
 [LIVE DEMO](http://chemerisuk.github.io/better-details-polyfill/)
 

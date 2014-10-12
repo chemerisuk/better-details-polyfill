@@ -16,17 +16,21 @@ details > summary:first-child {
 /*  IE8 has weird issue with updating state of pseudoelements.
     So use a triangle symbol for it instead to fix that quirks */
 summary:before {
-    content: "\25BA";
+    content: '\25BA';
     display: inline-block;
     width: 1.25em;
     font-size: 0.75em;
     margin-left: 0.25em;
 }
 
+details[open] > summary:first-child:before {
+    content: '\25BC';
+}
+
 /*  For modern browsers use border to draw the triangle.
     It allows to be consistent regarding on the current font */
 summary::before {
-    content: "" !important;
+    content: '';
 
     width: 0;
     height: 0;
@@ -45,8 +49,8 @@ summary::before {
     transition: transform 0.25s;
 }
 
-details[open] > summary:first-child:before {
-    content: "\25BC";
+details[open] > summary:first-child::before {
+    content: '';
     transform: rotate(90deg) scale(1.4);
 }
 
