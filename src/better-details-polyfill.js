@@ -7,33 +7,32 @@
 
     DOM.extend("details", condition, {
         constructor() {
-            var summary = this.child(0);
-
+            var opened = this.get("open");
+            opened = opened === "" || opened === "open";
+            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
+            this.set("role", "group").set("aria-expanded", opened);
+            this.children("summary:first-child").forEach(this.doInitSummary);
+            this.doDefineProperty("open", opened);
+        },
+        doInitSummary(summary) {
             summary
                 .set("tabindex", 0) // make summary to be focusable
+                .set("role", "button") // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
                 .on("click", ["currentTarget"], this.doToggleOpen)
                 .on("keydown", ["currentTarget", "which"], this.onKeyDown);
-            /* istanbul ignore if */
-            if (JSCRIPT_VERSION < 9) {
-                // for a some reason IE8 crashes w/o setTimeout
-                setTimeout(this.doDefineProp, 100);
-            } else {
-                this.doDefineProp();
-            }
         },
-        doDefineProp() {
+        doDefineProperty(propName, opened) {
             var node = this[0];
-            var propName = "open";
-            var initialValue = node.getAttribute(propName);
 
             Object.defineProperty(node, propName, {
                 get() {
-                    var value = String(node.getAttribute(propName, 1));
-
-                    return !value || value.toLowerCase() === propName.toLowerCase();
+                    return opened;
                 },
                 set(value) {
-                    if (value) {
+                    opened = !!value;
+                    node.setAttribute("aria-expanded", opened);
+
+                    if (opened) {
                         node.setAttribute(propName, "", 1);
                     } else {
                         node.removeAttribute(propName, 1);
@@ -49,10 +48,10 @@
             if (JSCRIPT_VERSION < 9) {
                 // trick to avoid infinite recursion in IE8
                 propName = propName.toUpperCase();
-            }
 
-            if (initialValue !== null) {
-                node.setAttribute(propName, initialValue, 1);
+                if (opened) {
+                    node.setAttribute(propName, opened, 1);
+                }
             }
         },
         doToggleOpen(summary) {
