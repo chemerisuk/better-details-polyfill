@@ -3,9 +3,9 @@
 
     var JSCRIPT_VERSION=/*@cc_on @_jscript_version|@*/void 0;
     // invoke extension only if there is no native support
-    var condition = typeof DOM.create("details").get("open") !== "boolean";
+    var open = DOM.create("details").get("open");
 
-    DOM.extend("details", condition, {
+    DOM.extend("details", typeof open !== "boolean", {
         constructor() {
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group");
@@ -13,12 +13,11 @@
             this.doDefineProperty();
         },
         doInitSummary(summary) {
-            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
             summary
-                .set("tabindex", 0) // make summary to be focusable
-                .set("role", "button")
-                .on("click", ["currentTarget"], this.doToggleOpen)
-                .on("keydown", ["currentTarget", "which"], this.onKeyDown);
+                // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
+                .set({role: "button", tabindex: 0})
+                .on("click", [summary], this.doToggleOpen)
+                .on("keydown", [summary, "which"], this.onKeyDown);
         },
         doDefineProperty() {
             var opened = this.get("open");
@@ -48,7 +47,7 @@
             } else {
                 node.removeAttribute(propName, 1);
             }
-            /* istanbul ignore if */
+            /* istanbul ignore next */
             if (JSCRIPT_VERSION < 9) {
                 // fix refresh issue in IE8
                 node.className = node.className;
@@ -63,7 +62,7 @@
             if (key === VK_SPACE || key === VK_ENTER) {
                 summary.fire("click");
 
-                return false;
+                return false; // prevent default
             }
         }
     });
