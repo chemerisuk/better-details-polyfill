@@ -28,8 +28,7 @@ details[open] > summary:first-child:before {
     content: '\25BC';
 }
 
-/*  For modern browsers use border to draw the triangle.
-    It allows to be consistent regarding on the current font */
+/*  For modern browsers use border to draw the triangle */
 summary::before {
     content: '';
 
@@ -45,14 +44,14 @@ summary::before {
     left: 0.15em;
 
     /* use scale to apply antialiasing on the triangle */
-    transform: rotate(0deg) scale(1.4);
+    transform: rotate(0deg) scale(1.5);
     transform-origin: 25% 50%;
-    transition: transform 0.25s;
+    transition: transform 0.15s ease-out;
 }
 
 details[open] > summary:first-child::before {
     content: '';
-    transform: rotate(90deg) scale(1.4);
+    transform: rotate(90deg) scale(1.5);
 }
 
 /*  Hide native indicator and use pseudoelement instead */

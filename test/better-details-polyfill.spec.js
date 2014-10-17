@@ -40,10 +40,12 @@ describe("better-details-polyfill", function() {
     });
 
     it("implements open attribute support", function() {
-        expect(details.doGetOpen()).toBe(false);
-        details.doSetOpen(true);
-        expect(details.doGetOpen()).toBe(true);
-        details.doSetOpen(false);
-        expect(details.doGetOpen()).toBe(false);
+        var value = null;
+
+        expect(details.doGetOpen(value)).toBe(false);
+        value = details.doSetOpen(true);
+        expect(details.doGetOpen(value)).toBe(true);
+        value = details.doSetOpen(false);
+        expect(details.doGetOpen(value)).toBe(false);
     });
 });

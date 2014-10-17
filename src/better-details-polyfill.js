@@ -1,7 +1,6 @@
 (function(DOM, VK_SPACE, VK_ENTER) {
     "use strict";
 
-    var JSCRIPT_VERSION=/*@cc_on @_jscript_version|@*/void 0;
     // invoke extension only if there is no native support
     var open = DOM.create("details").get("open");
 
@@ -10,7 +9,11 @@
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group");
             this.children("summary:first-child").forEach(this.doInitSummary);
-            this.doDefineProperty();
+
+            this.defineAttribute("open", {
+                get: this.doGetOpen[0],
+                set: this.doSetOpen[0]
+            });
         },
         doInitSummary(summary) {
             summary
@@ -19,39 +22,15 @@
                 .on("click", [summary], this.doToggleOpen)
                 .on("keydown", [summary, "which"], this.onKeyDown);
         },
-        doDefineProperty() {
-            var opened = this.get("open");
+        doGetOpen(attrValue) {
+            attrValue = String(attrValue).toLowerCase();
 
-            Object.defineProperty(this[0], "open", {
-                get: this.doGetOpen,
-                set: this.doSetOpen
-            });
-
-            // trigger initial state
-            this.set("open", opened === "" || opened === "open");
+            return attrValue === "" || attrValue === "open";
         },
-        doGetOpen() {
-            var node = this[0];
-            var opened = String(node.getAttribute("open"));
+        doSetOpen(propValue) {
+            this.set("aria-expanded", !!propValue);
 
-            return opened === "" || opened.toLowerCase() === "open";
-        },
-        doSetOpen(value) {
-            var node = this[0];
-            var propName = JSCRIPT_VERSION < 9 ? "OPEN" : "open";
-
-            node.setAttribute("aria-expanded", !!value);
-
-            if (value) {
-                node.setAttribute(propName, "", 1);
-            } else {
-                node.removeAttribute(propName, 1);
-            }
-            /* istanbul ignore next */
-            if (JSCRIPT_VERSION < 9) {
-                // fix refresh issue in IE8
-                node.className = node.className;
-            }
+            return propValue ? "" : null;
         },
         doToggleOpen(summary) {
             var details = summary.closest("details");
