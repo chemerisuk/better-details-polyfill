@@ -7,9 +7,11 @@ The goal for this project is to create a robust polyfill for the `<details>` ele
 
 ## Features
 * [live extension](https://github.com/chemerisuk/better-dom/wiki/Live-extensions) - works for current and future content
-* fully customisable via CSS
 * `open` attribute support
+* `toggle` event support
 * keyboard support
+* ARIA-friendly
+* fully customisable via CSS
 
 ## Installing
 Use [bower](http://bower.io/) to download this extension with all required dependencies.
