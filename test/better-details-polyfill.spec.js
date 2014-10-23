@@ -48,4 +48,35 @@ describe("better-details-polyfill", function() {
         value = details.doSetOpen(false);
         expect(details.doGetOpen(value)).toBe(false);
     });
+
+    describe("toggle event", function() {
+        it("is triggered on open attribute change", function() {
+            var toggleSpy = jasmine.createSpy("toggle");
+
+            DOM.find("body").append(details);
+
+            details.on("toggle", toggleSpy);
+            details.doSetOpen(true);
+            expect(toggleSpy.calls.count()).toBe(1);
+
+            spyOn(details, "get").and.returnValue(true);
+            details.doSetOpen(false);
+            expect(toggleSpy.calls.count()).toBe(2);
+
+            details.remove();
+        });
+
+        it("does not bubble", function() {
+            var toggleSpy = jasmine.createSpy("toggle"),
+                bodySpy = jasmine.createSpy("body");
+
+            DOM.find("body").append(details).on("toggle", bodySpy);
+
+            details.on("toggle", toggleSpy).doSetOpen(true);
+            expect(toggleSpy).toHaveBeenCalled();
+            expect(bodySpy).not.toHaveBeenCalled();
+
+            details.remove();
+        });
+    });
 });

@@ -7,8 +7,9 @@
     DOM.extend("details", typeof open !== "boolean", {
         constructor() {
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
-            this.set("role", "group");
-            this.children("summary:first-child").forEach(this.doInitSummary);
+            this.set("role", "group")
+                .on("toggle", ["stopPropagation"], (stop) => { stop() })
+                .children("summary:first-child").forEach(this.doInitSummary);
 
             this.defineAttribute("open", {
                 get: this.doGetOpen[0],
@@ -28,9 +29,15 @@
             return attrValue === "" || attrValue === "open";
         },
         doSetOpen(propValue) {
-            this.set("aria-expanded", !!propValue);
+            var currentValue = this.get("open");
 
-            return propValue ? "" : null;
+            propValue = !!propValue;
+
+            if (currentValue !== propValue) {
+                this.set("aria-expanded", propValue).fire("toggle");
+
+                return propValue ? "" : null;
+            }
         },
         doToggleOpen(summary) {
             var details = summary.closest("details");
