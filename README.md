@@ -8,9 +8,8 @@ The goal for this project is to create a robust polyfill for the `<details>` ele
 ## Features
 * [live extension](https://github.com/chemerisuk/better-dom/wiki/Live-extensions) - works for current and future content
 * `open` attribute support
-* `toggle` event support
-* keyboard support
-* ARIA-friendly
+* fires `toggle` event on open state change
+* keyboard and ARIA-friendly
 * fully customisable via CSS
 
 ## Installing
