@@ -12,8 +12,8 @@
                 .children("summary:first-child").forEach(this.doInitSummary);
 
             this.defineAttribute("open", {
-                get: this.doGetOpen[0],
-                set: this.doSetOpen[0]
+                get: this.doGetOpen,
+                set: this.doSetOpen
             });
         },
         doInitSummary(summary) {
@@ -33,11 +33,13 @@
 
             propValue = !!propValue;
 
-            if (currentValue !== propValue) {
-                this.set("aria-expanded", propValue).fire("toggle");
+            this.set("aria-expanded", propValue);
 
-                return propValue ? "" : null;
+            if (currentValue !== propValue) {
+                this.fire("toggle");
             }
+
+            return propValue ? "" : null;
         },
         doToggleOpen(summary) {
             var details = summary.closest("details");
