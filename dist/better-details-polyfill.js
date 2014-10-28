@@ -1,7 +1,7 @@
 /**
  * better-details-polyfill: <details> polyfill for better-dom
- * @version 2.0.0 Thu, 23 Oct 2014 16:36:08 GMT
- * @link 
+ * @version 2.0.1 Tue, 28 Oct 2014 07:58:22 GMT
+ * @link https://github.com/chemerisuk/better-details-polyfill
  * @copyright 2014 Maksim Chemerisuk
  * @license MIT
  */
@@ -19,8 +19,8 @@
                 .children("summary:first-child").forEach(this.doInitSummary);
 
             this.defineAttribute("open", {
-                get: this.doGetOpen[0],
-                set: this.doSetOpen[0]
+                get: this.doGetOpen,
+                set: this.doSetOpen
             });
         },
         doInitSummary: function(summary) {
@@ -40,11 +40,13 @@
 
             propValue = !!propValue;
 
-            if (currentValue !== propValue) {
-                this.set("aria-expanded", propValue).fire("toggle");
+            this.set("aria-expanded", propValue);
 
-                return propValue ? "" : null;
+            if (currentValue !== propValue) {
+                this.fire("toggle");
             }
+
+            return propValue ? "" : null;
         },
         doToggleOpen: function(summary) {
             var details = summary.closest("details");
