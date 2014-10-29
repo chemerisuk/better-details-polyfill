@@ -20,8 +20,8 @@
             summary
                 // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
                 .set({role: "button", tabindex: 0})
-                .on("click", [summary], this.doToggleOpen)
-                .on("keydown", [summary, "which"], this.onKeyDown);
+                .on("keydown", ["which"], this.doToggleOpen)
+                .on("click", this.doToggleOpen);
         },
         doGetOpen(attrValue) {
             attrValue = String(attrValue).toLowerCase();
@@ -41,16 +41,12 @@
 
             return propValue ? "" : null;
         },
-        doToggleOpen(summary) {
-            var details = summary.closest("details");
-
-            details.set("open", !details.get("open"));
-        },
-        onKeyDown(summary, key) {
-            if (key === VK_SPACE || key === VK_ENTER) {
-                summary.fire("click");
-
-                return false; // prevent default
+        doToggleOpen(key) {
+            if (!key || key === VK_SPACE || key === VK_ENTER) {
+                this.set("open", !this.get("open"));
+                // need to prevent default, because
+                // the enter key usually submits a form
+                return false;
             }
         }
     });

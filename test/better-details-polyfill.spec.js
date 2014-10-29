@@ -27,16 +27,18 @@ describe("better-details-polyfill", function() {
     });
 
     it("should toggle details on space or enter key", function() {
-        var spy = jasmine.createSpy("click");
+        var getSpy = spyOn(details, "get"),
+            setSpy = spyOn(details, "set");
 
-        summary.on("click", spy);
+        getSpy.and.returnValue(null);
+        details.doToggleOpen(13);
+        expect(setSpy).toHaveBeenCalledWith("open", true);
 
-        expect(details.onKeyDown(summary, 14)).not.toBe(false);
-        expect(spy.calls.count()).toBe(0);
-        expect(details.onKeyDown(summary, 13)).toBe(false);
-        expect(spy.calls.count()).toBe(1);
-        expect(details.onKeyDown(summary, 32)).toBe(false);
-        expect(spy.calls.count()).toBe(2);
+        getSpy.and.returnValue("open");
+        details.doToggleOpen(14); // invalid key test
+        expect(setSpy).not.toHaveBeenCalledWith("open", false);
+        details.doToggleOpen(32);
+        expect(setSpy).toHaveBeenCalledWith("open", false);
     });
 
     it("implements open attribute support", function() {
