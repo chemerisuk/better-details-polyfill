@@ -1,7 +1,7 @@
 {
   "name": "better-details-polyfill",
   "description": "<details> polyfill for better-dom",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Maksim Chemerisuk",
   "homepage": "https://github.com/chemerisuk/better-details-polyfill",
   "license": "MIT",
@@ -12,6 +12,7 @@
   "scripts": {
     "test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
     "start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
+    "release": "gulp release --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
     "gh-pages": "gulp gh-pages --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "better-details-polyfill",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": [
     "dist/better-details-polyfill.js"
   ],
