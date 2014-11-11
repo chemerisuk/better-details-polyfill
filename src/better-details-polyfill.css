@@ -1,6 +1,6 @@
-/*  Use tilda instead of the child selector to fix (partially)
-    a weird issue in IE11 for nested <details> elements */
-summary ~ * {
+/*  Use tilda instead of the child selector to handle error
+    case when several <summary> elements were specified */
+summary:first-child ~ * {
     display: none;
 }
 
@@ -10,26 +10,29 @@ details[open] > * {
 
 details > summary:first-child {
     display: block;
-    overflow: hidden; /* fix focus outline borders in open state */
 }
 
 /*  IE8 has weird issue with updating state of pseudoelements.
     So use a triangle symbol for it instead to fix that quirks */
-summary:before {
+details:before {
     content: '\25BA';
-    display: inline-block;
-    width: 1.25em;
     font-family: serif;
     font-size: 0.75em;
+    margin-top: 0.25em;
     margin-left: 0.25em;
+    position: absolute;
 }
 
-details[open] > summary:first-child:before {
+details[open]:before {
     content: '\25BC';
 }
 
+summary:first-child {
+    text-indent: 1.25em;
+}
+
 /*  For modern browsers use border to draw the triangle */
-summary::before {
+details::before {
     content: '';
 
     width: 0;
@@ -37,11 +40,8 @@ summary::before {
     border: solid transparent;
     border-left-color: inherit;
     border-width: 0.25em 0.5em;
-    margin-right: 0.25em;
-
-    position: relative;
-    top: -0.15em;
-    left: 0.15em;
+    margin-top: 0.75em;
+    margin-left: 0.5em;
 
     /* use scale to apply antialiasing on the triangle */
     transform: rotate(0deg) scale(1.5);
@@ -49,7 +49,7 @@ summary::before {
     transition: transform 0.15s ease-out;
 }
 
-details[open] > summary:first-child::before {
+details[open]::before {
     content: '';
     transform: rotate(90deg) scale(1.5);
 }
