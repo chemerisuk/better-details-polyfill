@@ -15,7 +15,9 @@ The goal for this project is to create a complete polyfill for the `<details>` e
 ## Installing
 Use [bower](http://bower.io/) to download this extension with all required dependencies.
 
-    $ bower install better-details-polyfill
+```sh
+$ bower install better-details-polyfill
+```
 
 This will clone the latest version of the __better-details-polyfill__ into the `bower_components` directory at the root of your project.
 
