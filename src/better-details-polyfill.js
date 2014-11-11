@@ -9,16 +9,26 @@
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group")
                 .on("toggle", ["stopPropagation"], (stop) => { stop() })
-                .children("summary:first-child").forEach(this.doInitSummary);
+                .defineAttribute("open", {
+                    get: this.doGetOpen,
+                    set: this.doSetOpen
+                });
 
-            this.defineAttribute("open", {
-                get: this.doGetOpen,
-                set: this.doSetOpen
-            });
-        },
-        doInitSummary(summary) {
-            summary
-                // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
+            var summaries = this.children("summary");
+
+            if (!summaries.length) {
+                // If there is no child summary element, the user agent
+                // should provide its own legend (e.g. "Details")
+                summaries.push(DOM.create("summary>`Details`"));
+            }
+
+            // make sure that the <summary> is the first child
+            if (this.child(0) !== summaries[0]) {
+                this.prepend(summaries[0]);
+            }
+
+            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
+            summaries[0]
                 .set({role: "button", tabindex: 0})
                 .on("keydown", ["which"], this.doToggleOpen)
                 .on("click", this.doToggleOpen);
