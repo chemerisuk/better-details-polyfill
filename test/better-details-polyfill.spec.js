@@ -51,6 +51,13 @@ describe("better-details-polyfill", function() {
         expect(details.doGetOpen(value)).toBe(false);
     });
 
+    it("makes summary to be the first child", function() {
+        var details = DOM.mock("details>p>`some text`^summary>`test`");
+        var summary = details.child(0);
+
+        expect(summary.toString()).toBe("<summary>");
+    });
+
     describe("toggle event", function() {
         it("is triggered on open attribute change", function() {
             var toggleSpy = jasmine.createSpy("toggle");
