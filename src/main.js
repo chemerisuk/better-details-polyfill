@@ -9,10 +9,7 @@
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group")
                 .on("toggle", ["stopPropagation"], (stop) => { stop() })
-                .defineAttribute("open", {
-                    get: this.doGetOpen,
-                    set: this.doSetOpen
-                });
+                .define("open", this.doGetOpen, this.doSetOpen);
 
             var summaries = this.children("summary");
             // If there is no child summary element, the user agent

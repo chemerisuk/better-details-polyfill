@@ -1,0 +1,71 @@
+@media all {
+    /*  Use tilda instead of the child selector to handle error
+        case when several <summary> elements were specified */
+    summary:first-child ~ * {
+        display: none;
+    }
+
+    details[open] > * {
+        display: block;
+    }
+
+    details > summary:first-child {
+        display: block;
+    }
+
+    /*  IE8 has weird issue with updating state of pseudoelements.
+        So use a triangle symbol for it instead to fix that quirks */
+    details:before {
+        content: '\25BA';
+        font-family: serif;
+        font-size: 0.75em;
+        margin-top: 0.25em;
+        margin-left: 0.25em;
+        position: absolute;
+    }
+
+    details[open]:before {
+        content: '\25BC';
+    }
+
+    summary:first-child {
+        text-indent: 1.25em;
+    }
+
+    /*  For modern browsers use border to draw the triangle */
+    details::before {
+        content: '';
+
+        width: 0;
+        height: 0;
+        border: solid transparent;
+        border-left-color: inherit;
+        border-width: 0.25em 0.5em;
+        margin-top: 0.75em;
+        margin-left: 0.5em;
+
+        /* use scale to apply antialiasing on the triangle */
+        transform: rotate(0deg) scale(1.5);
+        transform-origin: 25% 50%;
+        transition: transform 0.15s ease-out;
+    }
+
+    details[open]::before {
+        content: '';
+        transform: rotate(90deg) scale(1.5);
+    }
+
+    /*  Hide native indicator and use pseudoelement instead */
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    /* fix issue in Chrome when no summary exists */
+    details /deep/ summary {
+        text-indent: 1.25em;
+    }
+
+    details /deep/ ::-webkit-details-marker {
+        display: none;
+    }
+}
