@@ -31,24 +31,24 @@ describe("better-details-polyfill", function() {
             setSpy = spyOn(details, "set");
 
         getSpy.and.returnValue(null);
-        details.doToggleOpen(13);
+        details._toggleOpen(13);
         expect(setSpy).toHaveBeenCalledWith("open", true);
 
         getSpy.and.returnValue("open");
-        details.doToggleOpen(14); // invalid key test
+        details._toggleOpen(14); // invalid key test
         expect(setSpy).not.toHaveBeenCalledWith("open", false);
-        details.doToggleOpen(32);
+        details._toggleOpen(32);
         expect(setSpy).toHaveBeenCalledWith("open", false);
     });
 
     it("implements open attribute support", function() {
         var value = null;
 
-        expect(details.doGetOpen(value)).toBe(false);
-        value = details.doSetOpen(true);
-        expect(details.doGetOpen(value)).toBe(true);
-        value = details.doSetOpen(false);
-        expect(details.doGetOpen(value)).toBe(false);
+        expect(details._getOpen(value)).toBe(false);
+        value = details._setOpen(true);
+        expect(details._getOpen(value)).toBe(true);
+        value = details._setOpen(false);
+        expect(details._getOpen(value)).toBe(false);
     });
 
     it("makes summary to be the first child", function() {
@@ -65,11 +65,11 @@ describe("better-details-polyfill", function() {
             DOM.find("body").append(details);
 
             details.on("toggle", toggleSpy);
-            details.doSetOpen(true);
+            details._setOpen(true);
             expect(toggleSpy.calls.count()).toBe(1);
 
             spyOn(details, "get").and.returnValue(true);
-            details.doSetOpen(false);
+            details._setOpen(false);
             expect(toggleSpy.calls.count()).toBe(2);
 
             details.remove();
@@ -81,7 +81,7 @@ describe("better-details-polyfill", function() {
 
             DOM.find("body").append(details).on("toggle", bodySpy);
 
-            details.on("toggle", toggleSpy).doSetOpen(true);
+            details.on("toggle", toggleSpy)._setOpen(true);
             expect(toggleSpy).toHaveBeenCalled();
             expect(bodySpy).not.toHaveBeenCalled();
 

@@ -17,5 +17,9 @@
   },
   "devDependencies": {
     "better-dom-boilerplate": "git://github.com/chemerisuk/better-dom-boilerplate.git"
-  }
+  },
+  "karmaFiles": [
+    "bower_components/better-dom/dist/better-dom.js",
+    "bower_components/better-dom/dist/better-dom-legacy.js"
+  ]
 }

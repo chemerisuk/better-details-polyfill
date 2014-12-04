@@ -9,14 +9,14 @@
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group")
                 .on("toggle", ["stopPropagation"], (stop) => { stop() })
-                .define("open", this.doGetOpen, this.doSetOpen);
+                .define("open", this._getOpen, this._setOpen);
 
             var summaries = this.children("summary");
             // If there is no child summary element, the user agent
             // should provide its own legend (e.g. "Details")
-            this.doInitSummary(summaries[0] || DOM.create("summary>`Details`"));
+            this._initSummary(summaries[0] || DOM.create("summary>`Details`"));
         },
-        doInitSummary(summary) {
+        _initSummary(summary) {
             // make sure that the <summary> is the first child
             if (this.child(0) !== summary) {
                 this.prepend(summary);
@@ -25,15 +25,15 @@
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
             summary
                 .set({role: "button", tabindex: 0})
-                .on("keydown", ["which"], this.doToggleOpen)
-                .on("click", this.doToggleOpen);
+                .on("keydown", ["which"], this._toggleOpen.bind(this))
+                .on("click", this._toggleOpen.bind(this));
         },
-        doGetOpen(attrValue) {
+        _getOpen(attrValue) {
             attrValue = String(attrValue).toLowerCase();
 
             return attrValue === "" || attrValue === "open";
         },
-        doSetOpen(propValue) {
+        _setOpen(propValue) {
             var currentValue = this.get("open");
 
             propValue = !!propValue;
@@ -46,7 +46,7 @@
 
             return propValue ? "" : null;
         },
-        doToggleOpen(key) {
+        _toggleOpen(key) {
             if (!key || key === VK_SPACE || key === VK_ENTER) {
                 this.set("open", !this.get("open"));
                 // need to prevent default, because
