@@ -59,13 +59,4 @@
     summary::-webkit-details-marker {
         display: none;
     }
-
-    /* fix issue in Chrome when no summary exists */
-    details /deep/ summary {
-        text-indent: 1.25em;
-    }
-
-    details /deep/ ::-webkit-details-marker {
-        display: none;
-    }
 }
