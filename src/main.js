@@ -2,10 +2,9 @@
     "use strict";
 
     // add ARIA attributes for ALL browsers because current
-    // native implementaions have weak support:
+    // native implementaions are weak:
     // https://bugs.webkit.org/show_bug.cgi?id=131111
 
-    // invoke extension only if there is no native support
     var hasNativeSupport = typeof DOM.create("details").get("open") === "boolean";
 
     DOM.extend("details", {
@@ -22,19 +21,22 @@
             if (this.child(0) !== firstSummary) {
                 this.prepend(firstSummary);
             }
-
+            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
             firstSummary.set("role", "button");
 
             if (!hasNativeSupport) {
-                this.define("open", this._getOpen, this._setOpen);
-                // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
-                firstSummary
-                    .set("tabindex", 0)
-                    .on("keydown", ["which"], this._toggleOpen.bind(this))
-                    .on("click", this._toggleOpen.bind(this));
+                this._initSummary(firstSummary);
             }
 
             this._changeOpen();
+        },
+        _initSummary(summary) {
+            this.define("open", this._getOpen, this._setOpen);
+
+            summary
+                .set("tabindex", 0)
+                .on("keydown", ["which"], this._toggleOpen.bind(this))
+                .on("click", this._toggleOpen.bind(this));
         },
         _changeOpen(stop) {
             this.set("aria-expanded", this.get("open"));

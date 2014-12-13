@@ -7,9 +7,11 @@ describe("better-details-polyfill", function() {
         defineSpy = spyOn(Object, "defineProperty");
         details = DOM.mock("details>summary>`test`^p>`some text`");
         summary = details.child(0);
+
+        details._initSummary(summary);
     });
 
-    it("should make summary to be focusable", function() {
+    it("makes <summary> to be focusable", function() {
         expect(summary.get("tabindex")).toBe(0);
     });
 
@@ -58,34 +60,34 @@ describe("better-details-polyfill", function() {
         expect(summary.toString()).toBe("<summary>");
     });
 
-    describe("toggle event", function() {
-        it("is triggered on open attribute change", function() {
-            var toggleSpy = jasmine.createSpy("toggle");
+    // describe("toggle event", function() {
+    //     it("is triggered on open attribute change", function() {
+    //         var toggleSpy = jasmine.createSpy("toggle");
 
-            DOM.find("body").append(details);
+    //         DOM.find("body").append(details);
 
-            details.on("toggle", toggleSpy);
-            details._setOpen(true);
-            expect(toggleSpy.calls.count()).toBe(1);
+    //         details.on("toggle", toggleSpy);
+    //         details._setOpen(true);
+    //         expect(toggleSpy.calls.count()).toBe(1);
 
-            spyOn(details, "get").and.returnValue(true);
-            details._setOpen(false);
-            expect(toggleSpy.calls.count()).toBe(2);
+    //         spyOn(details, "get").and.returnValue(true);
+    //         details._setOpen(false);
+    //         expect(toggleSpy.calls.count()).toBe(2);
 
-            details.remove();
-        });
+    //         details.remove();
+    //     });
 
-        it("does not bubble", function() {
-            var toggleSpy = jasmine.createSpy("toggle"),
-                bodySpy = jasmine.createSpy("body");
+    //     it("does not bubble", function() {
+    //         var toggleSpy = jasmine.createSpy("toggle"),
+    //             bodySpy = jasmine.createSpy("body");
 
-            DOM.find("body").append(details).on("toggle", bodySpy);
+    //         DOM.find("body").append(details).on("toggle", bodySpy);
 
-            details.on("toggle", toggleSpy)._setOpen(true);
-            expect(toggleSpy).toHaveBeenCalled();
-            expect(bodySpy).not.toHaveBeenCalled();
+    //         details.on("toggle", toggleSpy)._setOpen(true);
+    //         expect(toggleSpy).toHaveBeenCalled();
+    //         expect(bodySpy).not.toHaveBeenCalled();
 
-            details.remove();
-        });
-    });
+    //         details.remove();
+    //     });
+    // });
 });
