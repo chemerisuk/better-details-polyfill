@@ -23,16 +23,16 @@
             }
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
             firstSummary.set("role", "button");
-
+            /* istanbul ignore if */
             if (!hasNativeSupport) {
+                this.define("open", this._getOpen, this._setOpen);
+
                 this._initSummary(firstSummary);
             }
 
             this._changeOpen();
         },
         _initSummary(summary) {
-            this.define("open", this._getOpen, this._setOpen);
-
             summary
                 .set("tabindex", 0)
                 .on("keydown", ["which"], this._toggleOpen.bind(this))
@@ -54,6 +54,8 @@
             propValue = !!propValue;
 
             if (currentValue !== propValue) {
+                // have to use setTimeout because the event should
+                // fire AFTER the attribute was updated
                 setTimeout(() => { this.fire("toggle") }, 0);
             }
 
