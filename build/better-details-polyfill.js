@@ -1,55 +1,67 @@
 (function(DOM, VK_SPACE, VK_ENTER) {
     "use strict";
 
-    // invoke extension only if there is no native support
-    var open = DOM.create("details").get("open");
+    // add ARIA attributes for ALL browsers because current
+    // native implementaions are weak:
+    // https://bugs.webkit.org/show_bug.cgi?id=131111
 
-    DOM.extend("details", typeof open !== "boolean", {
+    var hasNativeSupport = typeof DOM.create("details").get("open") === "boolean";
+
+    DOM.extend("details", {
         constructor: function() {
             // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element
             this.set("role", "group")
-                .on("toggle", ["stopPropagation"], function(stop)  { stop() })
-                .defineAttribute("open", {
-                    get: this.doGetOpen,
-                    set: this.doSetOpen
-                });
+                .on("toggle", ["stopPropagation"], this._changeOpen.bind(this));
 
-            var summaries = this.children("summary");
+            var firstSummary = this.children("summary")[0];
             // If there is no child summary element, the user agent
             // should provide its own legend (e.g. "Details")
-            this.doInitSummary(summaries[0] || DOM.create("summary>`Details`"));
-        },
-        doInitSummary: function(summary) {
-            // make sure that the <summary> is the first child
-            if (this.child(0) !== summary) {
-                this.prepend(summary);
+            if (!firstSummary) firstSummary = DOM.create("summary>`Details`");
+            // make the first <summary> always to be the first child
+            if (this.child(0) !== firstSummary) {
+                this.prepend(firstSummary);
+            }
+            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
+            firstSummary.set("role", "button");
+            /* istanbul ignore if */
+            if (!hasNativeSupport) {
+                this.define("open", this._getOpen, this._setOpen);
+
+                this._initSummary(firstSummary);
             }
 
-            // http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-summary-element
-            summary
-                .set({role: "button", tabindex: 0})
-                .on("keydown", ["which"], this.doToggleOpen)
-                .on("click", this.doToggleOpen);
+            this._changeOpen();
         },
-        doGetOpen: function(attrValue) {
+        _initSummary: function(summary) {
+            summary
+                .set("tabindex", 0)
+                .on("keydown", ["which"], this._toggleOpen.bind(this))
+                .on("click", this._toggleOpen.bind(this));
+        },
+        _changeOpen: function(stop) {
+            this.set("aria-expanded", this.get("open"));
+
+            if (stop) stop(); // toggle event should not bubble
+        },
+        _getOpen: function(attrValue) {
             attrValue = String(attrValue).toLowerCase();
 
             return attrValue === "" || attrValue === "open";
         },
-        doSetOpen: function(propValue) {
+        _setOpen: function(propValue) {var this$0 = this;
             var currentValue = this.get("open");
 
             propValue = !!propValue;
 
-            this.set("aria-expanded", propValue);
-
             if (currentValue !== propValue) {
-                this.fire("toggle");
+                // have to use setTimeout because the event should
+                // fire AFTER the attribute was updated
+                setTimeout(function()  { this$0.fire("toggle") }, 0);
             }
 
             return propValue ? "" : null;
         },
-        doToggleOpen: function(key) {
+        _toggleOpen: function(key) {
             if (!key || key === VK_SPACE || key === VK_ENTER) {
                 this.set("open", !this.get("open"));
                 // need to prevent default, because
@@ -60,12 +72,4 @@
     });
 }(window.DOM, 32, 13));
 
-DOM.importStyles("summary:first-child~*", "display:none");
-DOM.importStyles("details[open]>*", "display:block");
-DOM.importStyles("details>summary:first-child", "display:block");
-DOM.importStyles("details:before", "content:'\\25BA';font-family:serif;font-size:.75em;margin-top:.25em;margin-left:.25em;position:absolute");
-DOM.importStyles("details[open]:before", "content:'\\25BC'");
-DOM.importStyles("summary:first-child", "text-indent:1.25em");
-DOM.importStyles("details::before", "content:'';width:0;height:0;border:solid transparent;border-left-color:inherit;border-width:.25em .5em;margin-top:.75em;margin-left:.5em;-webkit-transform:rotate(0deg) scale(1.5);-ms-transform:rotate(0deg) scale(1.5);transform:rotate(0deg) scale(1.5);-webkit-transform-origin:25% 50%;-ms-transform-origin:25% 50%;transform-origin:25% 50%;-webkit-transition:-webkit-transform .15s ease-out;transition:transform .15s ease-out");
-DOM.importStyles("details[open]::before", "content:'';-webkit-transform:rotate(90deg) scale(1.5);-ms-transform:rotate(90deg) scale(1.5);transform:rotate(90deg) scale(1.5)");
-DOM.importStyles("summary::-webkit-details-marker", "display:none");
+DOM.importStyles("@media all", "summary:first-child~*{display:none}details[open]>*{display:block}details>summary:first-child{display:block}details:before{content:'\\25BA';font-family:serif;font-size:.75em;margin-top:.25em;margin-left:.25em;position:absolute}details[open]:before{content:'\\25BC'}summary:first-child{text-indent:1.25em}details::before{content:'';width:0;height:0;border:solid transparent;border-left-color:inherit;border-width:.25em .5em;margin-top:.75em;margin-left:.5em;-webkit-transform:rotate(0deg) scale(1.5);-ms-transform:rotate(0deg) scale(1.5);transform:rotate(0deg) scale(1.5);-webkit-transform-origin:25% 50%;-ms-transform-origin:25% 50%;transform-origin:25% 50%;-webkit-transition:-webkit-transform .15s ease-out;transition:transform .15s ease-out}details[open]::before{content:'';-webkit-transform:rotate(90deg) scale(1.5);-ms-transform:rotate(90deg) scale(1.5);transform:rotate(90deg) scale(1.5)}summary::-webkit-details-marker{display:none}");
